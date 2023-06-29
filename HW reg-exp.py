@@ -3,10 +3,10 @@ import csv
 
 updated_contact_list = []
 
-def change_names(c_list):
+def change_names(contacts_list):
     name_pattern = r'([А-Я])'
     count_sub = r' \1'
-    for column in c_list[1:]:
+    for column in contacts_list[1:]:
         fio = column[0] + column[1] + column[2]
         if len(re.sub(name_pattern, count_sub, fio).split()) == 3:
             column[0] = re.sub(name_pattern, count_sub, fio).split()[0]
@@ -52,9 +52,9 @@ def duplicate_fio():
 if __name__ == '__main__':
     with open("/Users/aleksanderpecherskiy/Desktop/my_demo/py-homeworks-advanced/5.Regexp/phonebook_raw.csv") as f:
         rows = csv.reader(f, delimiter=",")
-        contacts_list = list(rows)
+        contacts = list(rows)
         updated_contact_list = []
-        change_names(contacts_list)
+        change_names(contacts)
         change_phone_number()
         duplicate_fio()
 
