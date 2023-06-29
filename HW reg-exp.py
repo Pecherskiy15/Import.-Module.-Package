@@ -1,37 +1,28 @@
 import re
 import csv
 
-updated_contact_list = []
 
 def change_names(contacts_list):
-    name_pattern = r'([А-Я])'
-    count_sub = r' \1'
-    for column in contacts_list[1:]:
-        fio = column[0] + column[1] + column[2]
-        if len(re.sub(name_pattern, count_sub, fio).split()) == 3:
-            column[0] = re.sub(name_pattern, count_sub, fio).split()[0]
-            column[1] = re.sub(name_pattern, count_sub, fio).split()[1]
-            column[2] = re.sub(name_pattern, count_sub, fio).split()[2]
-        elif len(re.sub(name_pattern, count_sub, fio).split()) == 2:
-            column[0] = re.sub(name_pattern, count_sub, fio).split()[0]
-            column[1] = re.sub(name_pattern, count_sub, fio).split()[1]
-            column[2] = ''
-        elif len(re.sub(name_pattern, count_sub, fio).split()) == 1:
-            column[0] = re.sub(name_pattern, count_sub, fio).split()[0]
-            column[1] = ''
-            column[2] = ''
+    for contact in contacts_list:
+        fio_list = ' '.join(contact[0:3]).split()
+
+        if len(fio_list) != 3:
+            fio_list.append('')
+        full_contact = fio_list + change_phone_number(contact[3:])
+        updated_contact_list.append(full_contact)
     return
 
-def change_phone_number():
+def change_phone_number(contact_for_change):
     phone_pattern = re.compile(r'(\+7|8)?\s*\(?(\d{3})\)?\s*\D?(\d{3})[-\s+]?(\d{2})-?(\d{2})((\s)?\(?(доб.)?\s?(\d+)\)?)?')
     phone_sub = r'+7(\2)\3-\4-\5\7\8\9'
-    for column in contacts_list:
-        column[5] = phone_pattern.sub(phone_sub, column[5])
-    return
+    contact_string = '?'.join(contact_for_change)
+    changed_contact_string = phone_pattern.sub(phone_sub, contact_string)
+    changed_contact_list = changed_contact_string.split('?')
+    return  changed_contact_list
 
-def duplicate_fio():
+def duplicate_fio(contacts):
     distinct_list = {}
-    for column in contacts_list[1:]:
+    for column in contacts[1:]:
         last_name = column[0]
         if last_name not in distinct_list:
             distinct_list[last_name] = column
@@ -55,9 +46,8 @@ if __name__ == '__main__':
         contacts = list(rows)
         updated_contact_list = []
         change_names(contacts)
-        change_phone_number()
-        duplicate_fio()
+        # duplicate_fio(contacts)
 
-    with open("/Users/aleksanderpecherskiy/Desktop/my_demo/py-homeworks-advanced/5.Regexp/phonebook.csv", "w") as f:
-        datawriter = csv.writer(f, delimiter=',')
-        datawriter.writerows(contacts_list)
+    # with open("/Users/aleksanderpecherskiy/Desktop/my_demo/py-homeworks-advanced/5.Regexp/phonebook.csv", "w") as f:
+    #     datawriter = csv.writer(f, delimiter=',')
+    #     datawriter.writerows(contacts)
