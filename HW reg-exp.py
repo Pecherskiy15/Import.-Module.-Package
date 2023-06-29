@@ -1,23 +1,6 @@
 import re
 import csv
-from pprint import pprint
 
-
-# def change_names(contacts_list):
-#     for contact in contacts_list:
-#         fio_list = ' '.join(contact[0:3]).split()
-#
-#         if len(fio_list) != 3:
-#             fio_list.append('')
-#         full_contact = fio_list + change_phone_number(contact[3:])
-#         updated_contact_list.append(full_contact)
-#
-#         for current in updated_contact_list:
-#             if full_contact[:2] == current[:2]:
-#                 updated_contact_list.remove(current)
-#                 full_contact =updated_contact_list.append(full_contact)
-#
-#     return updated_contact_list
 
 def change_names(contacts_list):
     for contact in contacts_list:
@@ -72,4 +55,4 @@ if __name__ == '__main__':
 
     with open("/Users/aleksanderpecherskiy/Desktop/my_demo/py-homeworks-advanced/5.Regexp/phonebook.csv", "w") as f:
         datawriter = csv.writer(f, delimiter=',')
-        datawriter.writerows(contacts)
+        datawriter.writerows(updated_contact_list)
