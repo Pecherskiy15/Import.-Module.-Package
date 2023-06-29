@@ -3,10 +3,10 @@ import csv
 
 updated_contact_list = []
 
-def change_names():
+def change_names(c_list):
     name_pattern = r'([А-Я])'
     count_sub = r' \1'
-    for column in contacts_list[1:]:
+    for column in c_list[1:]:
         fio = column[0] + column[1] + column[2]
         if len(re.sub(name_pattern, count_sub, fio).split()) == 3:
             column[0] = re.sub(name_pattern, count_sub, fio).split()[0]
