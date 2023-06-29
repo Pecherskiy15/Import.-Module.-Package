@@ -1,10 +1,7 @@
 import re
 import csv
 
-with open("/Users/aleksanderpecherskiy/Desktop/my_demo/py-homeworks-advanced/5.Regexp/phonebook_raw.csv") as f:
-    rows = csv.reader(f, delimiter=",")
-    contacts_list = list(rows)
-    updated_contact_list = []
+updated_contact_list = []
 
 def change_names():
     name_pattern = r'([А-Я])'
@@ -57,7 +54,7 @@ if __name__ == '__main__':
         rows = csv.reader(f, delimiter=",")
         contacts_list = list(rows)
         updated_contact_list = []
-        change_names()
+        change_names(contacts_list)
         change_phone_number()
         duplicate_fio()
 
